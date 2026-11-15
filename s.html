@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shooting Hours — Shared Dates</title>
+<title>HarvestLight — Shared Dates</title>
 <style>
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -45,11 +45,11 @@
 <body>
 
 <h1 id="heading">Shooting dates have been shared with you</h1>
-<p id="subtext">Tap below to open them in Shooting Hours.</p>
+<p id="subtext">Tap below to open them in HarvestLight.</p>
 
-<a id="openButton" class="open-button" href="#">Open in Shooting Hours</a>
+<a id="openButton" class="open-button" href="#">Open in HarvestLight</a>
 
-<p class="no-app">Don't have the Shooting Hours app yet? <a href="https://apps.apple.com/us/app/shooting-hours/id6832798644">Download it from the App Store</a>, then come back and tap this link again.</p>
+<p class="no-app">Don't have the HarvestLight app yet? <a href="https://apps.apple.com/us/app/harvestlight/id6832798644">Download it from the App Store</a>, then come back and tap this link again.</p>
 
 <script>
   (function () {
@@ -67,7 +67,7 @@
       return;
     }
 
-    openButton.href = "shootinghours://import?data=" + encodeURIComponent(data);
+    openButton.href = "harvestlight://import?data=" + encodeURIComponent(data);
 
     // Best-effort: decode just enough to show a friendlier subtitle. Falls
     // back to the generic message above if the payload doesn't parse —
