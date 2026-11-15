@@ -2,9 +2,9 @@
   "applinks": {
     "details": [
       {
-        "appIDs": ["Y6J9JAJJA5.com.shootinghoursapp.shootinghours"],
+        "appIDs": ["Y6J9JAJJA5.com.harvestlightapp.harvestlight"],
         "components": [
-          { "/": "/s.html", "comment": "Shooting Hours shared-dates links" }
+          { "/": "/s.html", "comment": "HarvestLight shared-dates links" }
         ]
       }
     ]
