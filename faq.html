@@ -40,11 +40,16 @@
     pointer-events: none;
   }
   /* Apple-style hero convention: a consistent, responsive edge inset
-     (not a fixed-width column auto-centered in the middle of the
-     viewport, which just reads as dead space on a wide screen) and
-     left-aligned text at every width. */
+     a single shared container, centered on the page as a whole (so
+     the leftover space is split evenly on both sides, which is what
+     actually reads as "balanced" — a column anchored to one edge
+     never does, no matter how wide it is), with the text inside it
+     left-aligned rather than centered. Hero and body share this same
+     container so their text lines up. */
   .hero-content {
     position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 1.5rem clamp(1.25rem, 5vw, 4rem) 0.5rem;
     text-align: left;
   }
@@ -113,15 +118,13 @@
     .grass { height: 52px; }
   }
 
-  /* Same left edge as .hero-content at every width. The section itself
-     is allowed to be wide (so it doesn't leave a huge dead void next
-     to a narrow column on an ordinary laptop screen), but the actual
-     paragraph text keeps its own, separate readable measure below —
-     a wide container and a narrow reading column aren't the same
-     constraint and shouldn't share one max-width. */
+  /* Same shared, centered container as .hero-content — see its own
+     comment. Paragraph/list text inside each question still keeps its
+     own separate, narrower reading measure (below), since a section's
+     width and a comfortable line length aren't the same constraint. */
   main {
-    max-width: 1100px;
-    margin: 0;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 2.5rem clamp(1.25rem, 5vw, 4rem) 4rem;
     line-height: 1.6;
   }
@@ -178,8 +181,8 @@
     color: #1c1c1e;
   }
   footer {
-    max-width: 700px;
-    margin: 0;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 0 clamp(1.25rem, 5vw, 4rem) 3rem;
     font-size: 0.85rem;
     color: #8a8a8e;
