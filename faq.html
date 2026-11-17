@@ -25,7 +25,6 @@
     position: relative;
     overflow: hidden;
     background: linear-gradient(to bottom, var(--navy) 0%, var(--navy) 12%, var(--rose) 55%, var(--orange) 100%);
-    text-align: center;
   }
   .hero::before {
     /* a few faint stars, same idea as the app's night-sky hero */
@@ -40,11 +39,14 @@
       radial-gradient(1px 1px at 10% 45%, rgba(255,255,255,0.5), transparent);
     pointer-events: none;
   }
+  /* Apple-style hero convention: a consistent, responsive edge inset
+     (not a fixed-width column auto-centered in the middle of the
+     viewport, which just reads as dead space on a wide screen) and
+     left-aligned text at every width. */
   .hero-content {
     position: relative;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 1.75rem 1.5rem 0.5rem;
+    padding: 1.5rem clamp(1.25rem, 5vw, 4rem) 0.5rem;
+    text-align: left;
   }
   .hero h1 {
     font-family: "Marcellus", serif;
@@ -57,16 +59,13 @@
   .hero p.tagline {
     font-family: "Marcellus", serif;
     font-size: 1.15rem;
-    margin: 0.35rem 0 0;
+    margin: 0.2rem 0 0;
     color: rgba(255,255,255,0.92);
   }
   .hero p.subtitle {
     font-size: 0.95rem;
-    margin: 0.75rem 0 0;
+    margin: 0.4rem 0 0;
     color: rgba(255,255,255,0.75);
-  }
-  @media (min-width: 481px) {
-    .hero-content { text-align: left; }
   }
 
   /* The scene band: deer+moon grounded in the grass, both layered directly
