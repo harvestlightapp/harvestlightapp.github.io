@@ -71,27 +71,30 @@
      stacked below it. The deer sits behind the grass line, same as the
      app's own hero, so its legs read as standing in the field rather than
      floating in front of it. */
+  /* These numbers are pulled directly from the app's own source
+     (ContentView.swift), not eyeballed: the deer/moon's rendered
+     height IS heroSceneHeight (170pt iPad-like / 120pt phone-like),
+     filling the scene box edge to edge with no extra margin. Grass
+     height is GrassSilhouetteRow's own formula: capped at 0.55x
+     heroSceneHeight on a wide layout, or width/aspectRatio on a
+     narrow one (both work out to roughly the same ~0.55 ratio here). */
   .hero-scene {
     position: relative;
-    height: 230px;
+    height: 170px;
   }
   .hero-art {
     position: absolute;
     right: 8%;
-    bottom: 30px;
-    height: 220px;
+    bottom: 0;
+    height: 170px;
     width: auto;
   }
-  /* Matches the app's own GrassSilhouetteRow exactly: the real artwork,
-     never cropped, shown at its native aspect ratio and tiled
-     horizontally (background-size: auto 100% + repeat-x) to fill
-     whatever width it's in — not a single stretched/cropped copy. */
   .grass {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -2px;
-    height: 55px;
+    bottom: 0;
+    height: 93px;
     background-image: url('images/grass-silhouette.png');
     background-repeat: repeat-x;
     background-position: bottom left;
@@ -103,9 +106,9 @@
     .hero h1 { font-size: 1.9rem; }
     .hero p.tagline { font-size: 1rem; }
     .hero p.subtitle { font-size: 0.85rem; }
-    .hero-scene { height: 190px; }
-    .hero-art { height: 175px; bottom: 24px; right: 4%; }
-    .grass { height: 42px; }
+    .hero-scene { height: 120px; }
+    .hero-art { height: 120px; right: 4%; }
+    .grass { height: 65px; }
   }
 
   main {
