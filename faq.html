@@ -130,9 +130,9 @@
   }
 
   @media (max-width: 480px) {
-    /* Same reasoning as the desktop 230px value: measured text bottom
-       at ~84px, grass (65px tall) needs real clearance above that. */
-    .hero-inner { height: 170px; }
+    /* Measured text bottom at ~84px; grass (now 40px tall) needs real
+       clearance above that, not the full box this used to assume. */
+    .hero-inner { height: 140px; }
     .hero-content { padding: 1rem 1.25rem 0; }
     .hero h1 { font-size: 1.9rem; }
     .hero p.tagline { font-size: 1.3rem; }
@@ -142,7 +142,7 @@
        hero. Shrinking just the art's own size, not the box or grass,
        keeps the already-verified text/grass clearance untouched. */
     .hero-art { height: 100px; }
-    .grass { height: 65px; }
+    .grass { height: 40px; }
   }
 
   /* Same left-anchored container as .hero-inner — see its own
