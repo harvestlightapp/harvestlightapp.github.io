@@ -73,25 +73,23 @@
      floating in front of it. */
   .hero-scene {
     position: relative;
-    height: 170px;
+    height: 230px;
   }
   .hero-art {
     position: absolute;
-    right: 6%;
-    bottom: 34px;
-    height: 150px;
+    right: 8%;
+    bottom: 30px;
+    height: 220px;
     width: auto;
   }
   .grass {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: -2px;
     display: block;
     width: 100%;
-    height: 120px;
-    object-fit: cover;
-    object-position: center 58%;
+    height: 55px;
   }
 
   @media (max-width: 480px) {
@@ -99,9 +97,9 @@
     .hero h1 { font-size: 1.9rem; }
     .hero p.tagline { font-size: 1rem; }
     .hero p.subtitle { font-size: 0.85rem; }
-    .hero-scene { height: 130px; }
-    .hero-art { height: 100px; bottom: 26px; right: 4%; }
-    .grass { height: 90px; }
+    .hero-scene { height: 190px; }
+    .hero-art { height: 175px; bottom: 24px; right: 4%; }
+    .grass { height: 42px; }
   }
 
   main {
@@ -173,7 +171,9 @@
   </div>
   <div class="hero-scene">
     <img class="hero-art" src="images/harvest-moon-deer.png" alt="">
-    <img class="grass" src="images/grass-silhouette.png" alt="">
+    <svg class="grass" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="var(--navy)" d="M0,100 L19,12 L34,66 L48,24 L68,21 L90,21 L107,48 L121,15 L139,21 L162,17 L185,58 L210,56 L227,47 L248,22 L274,57 L292,65 L313,17 L335,21 L356,57 L379,66 L400,32 L421,64 L444,67 L463,8 L486,11 L512,34 L532,32 L552,38 L574,66 L594,15 L610,37 L633,13 L649,66 L672,71 L696,44 L716,42 L740,20 L757,35 L780,55 L796,66 L810,36 L826,41 L847,33 L868,23 L883,70 L899,61 L918,55 L936,38 L952,72 L978,24 L1000,67 L1000,100 Z" />
+    </svg>
   </div>
 </div>
 
