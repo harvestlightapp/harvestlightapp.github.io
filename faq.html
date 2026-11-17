@@ -65,6 +65,9 @@
     margin: 0.75rem 0 0;
     color: rgba(255,255,255,0.75);
   }
+  @media (min-width: 481px) {
+    .hero-content { text-align: left; }
+  }
 
   /* The scene band: deer+moon grounded in the grass, both layered directly
      over the gradient's own lower (orange) portion — not a separate banner
@@ -116,6 +119,11 @@
     margin: 0 auto;
     padding: 2.5rem 1.25rem 4rem;
     line-height: 1.6;
+  }
+  .page-title {
+    font-size: 1.75rem;
+    margin: 0 0 1.5rem;
+    color: var(--navy);
   }
   h2 {
     font-size: 1.05rem;
@@ -175,8 +183,8 @@
 <div class="hero">
   <div class="hero-content">
     <h1>HarvestLight</h1>
-    <p class="tagline">Frequently asked questions</p>
-    <p class="subtitle">Shooting hours alarms — your phone stays in your pocket, you stay ready.</p>
+    <p class="tagline">Shooting hours alarms</p>
+    <p class="subtitle">Your phone stays in your pocket. You stay ready.</p>
   </div>
   <div class="hero-scene">
     <img class="hero-art" src="images/harvest-moon-deer.png" alt="">
@@ -185,6 +193,8 @@
 </div>
 
 <main>
+
+<h1 class="page-title">FAQ</h1>
 
 <div class="question">
   <h2>Do I need to create an account?</h2>
