@@ -103,9 +103,18 @@
     position: relative;
     height: 130px;
   }
+  /* `right: 8%` (the previous approach) measures from the container's
+     own right edge — which is exactly the bug: the text block is only
+     ~400px wide, but the container can be 1200px wide, so "8% from
+     the right" leaves the deer hundreds of pixels away from where
+     the text actually ends, with nothing but empty gradient between
+     them. Position it from the left instead, close to where the text
+     is expected to end, with a safety clamp (the `calc(100% ...)`
+     term) so it can't run past the container's own right edge or
+     collide with the text at narrower widths. */
   .hero-art {
     position: absolute;
-    right: 8%;
+    left: min(440px, calc(100% - 144px));
     bottom: 0;
     height: 130px;
     width: auto;
