@@ -39,17 +39,31 @@
       radial-gradient(1px 1px at 10% 45%, rgba(255,255,255,0.5), transparent);
     pointer-events: none;
   }
-  /* Apple-style hero convention: a consistent, responsive edge inset
-     a single shared container, centered on the page as a whole (so
-     the leftover space is split evenly on both sides, which is what
-     actually reads as "balanced" — a column anchored to one edge
-     never does, no matter how wide it is), with the text inside it
-     left-aligned rather than centered. Hero and body share this same
-     container so their text lines up. */
-  .hero-content {
+  /* Apple-style hero convention: a single shared container, centered
+     on the page as a whole (so leftover space splits evenly left and
+     right instead of piling up on one edge), with text inside it
+     left-aligned. Both the text AND the scene (deer/grass) live inside
+     this one wrapper — they used to be separate siblings positioned
+     against two different coordinate systems (one constrained to this
+     container, the other against the full raw viewport), which is
+     exactly what produced a huge dead gap between them on a wide
+     screen: the text stopped where the 1200px container ended, but the
+     deer kept sitting near the true edge of a much wider viewport. */
+  .hero-inner {
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
+  }
+  /* Inside .hero-scene, this same shared container needs to actually
+     overlay the full scene box (not just shrink to its own content)
+     so hero-art's bottom/right positioning is anchored to it rather
+     than collapsing to the image's own size. */
+  .hero-scene .hero-inner {
+    position: absolute;
+    inset: 0;
+  }
+  .hero-content {
+    position: relative;
     padding: 1.5rem clamp(1.25rem, 5vw, 4rem) 0.5rem;
     text-align: left;
   }
@@ -192,13 +206,17 @@
 <body>
 
 <div class="hero">
-  <div class="hero-content">
-    <h1>HarvestLight</h1>
-    <p class="tagline">Shooting hours alarms</p>
-    <p class="subtitle">Your phone stays in your pocket. You stay ready.</p>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <h1>HarvestLight</h1>
+      <p class="tagline">Shooting hours alarms</p>
+      <p class="subtitle">Your phone stays in your pocket. You stay ready.</p>
+    </div>
   </div>
   <div class="hero-scene">
-    <img class="hero-art" src="images/harvest-moon-deer.png" alt="">
+    <div class="hero-inner">
+      <img class="hero-art" src="images/harvest-moon-deer.png" alt="">
+    </div>
     <div class="grass"></div>
   </div>
 </div>
