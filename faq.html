@@ -39,32 +39,42 @@
       radial-gradient(1px 1px at 10% 45%, rgba(255,255,255,0.5), transparent);
     pointer-events: none;
   }
-  /* Apple-style hero convention: a single shared container, centered
-     on the page as a whole (so leftover space splits evenly left and
-     right instead of piling up on one edge), with text inside it
-     left-aligned. Both the text AND the scene (deer/grass) live inside
-     this one wrapper — they used to be separate siblings positioned
-     against two different coordinate systems (one constrained to this
-     container, the other against the full raw viewport), which is
-     exactly what produced a huge dead gap between them on a wide
-     screen: the text stopped where the 1200px container ended, but the
-     deer kept sitting near the true edge of a much wider viewport. */
+  /* Anchored to the left edge (margin: 0, not 0 auto) with a capped
+     width — not centered. Centering made the content's own left edge
+     drift rightward as the window grew past the max-width (sitting
+     near the viewport's left edge below that width, then jumping to
+     "(viewport - max-width)/2 from the edge" above it) — exactly the
+     "content moves when you resize" complaint. A left anchor's own
+     inset only comes from the clamp() padding below, which is static
+     past its own cap (4rem), so nothing shifts once you're past that.
+
+     Text and the scene (deer/grass) are NOT stacked as two separate
+     blocks (text block, then a full-height scene block below it) —
+     that forced the scene to always start below wherever the text
+     happened to end, wasting height any time the text was short. The
+     app doesn't do that either: the artwork is bottom-anchored within
+     the *same* box the text sits in, so the two share vertical space
+     instead of one pushing the other down. .hero-inner is that one
+     shared box, with an explicit height (so it doesn't collapse to
+     nothing — none of its children are in normal flow) and the text
+     and deer/moon positioned within it independently. (Grass is NOT
+     in here — see below, it stays full-bleed outside this capped
+     container.) */
+  /* 230px, not 170 (heroSceneHeight) — measured directly: with the
+     bigger subhead, the text block's own bottom edge sits at ~111px,
+     and grass (93px tall, bottom-anchored) needs its own top edge
+     below that with room to spare, or its tallest blades run straight
+     into the text — confirmed happening at 170px. 230px leaves a
+     real, measured ~26px of clearance instead of an assumed one. */
   .hero-inner {
     position: relative;
     max-width: 1200px;
-    margin: 0 auto;
-  }
-  /* Inside .hero-scene, this same shared container needs to actually
-     overlay the full scene box (not just shrink to its own content)
-     so hero-art's bottom/right positioning is anchored to it rather
-     than collapsing to the image's own size. */
-  .hero-scene .hero-inner {
-    position: absolute;
-    inset: 0;
+    margin: 0;
+    height: 230px;
   }
   .hero-content {
     position: relative;
-    padding: 1.5rem clamp(1.25rem, 5vw, 4rem) 0.5rem;
+    padding: 1.25rem clamp(1.25rem, 5vw, 4rem) 0;
     text-align: left;
   }
   .hero h1 {
@@ -77,15 +87,10 @@
   }
   .hero p.tagline {
     font-family: "Marcellus", serif;
-    font-size: 1.15rem;
+    font-size: 1.75rem;
     margin: 0.2rem 0 0;
     color: rgba(255,255,255,0.92);
   }
-  /* The scene band: deer+moon grounded in the grass, both layered directly
-     over the gradient's own lower (orange) portion — not a separate banner
-     stacked below it. The deer sits behind the grass line, same as the
-     app's own hero, so its legs read as standing in the field rather than
-     floating in front of it. */
   /* These numbers are pulled directly from the app's own source
      (ContentView.swift), not eyeballed: the deer/moon's rendered
      height IS heroSceneHeight (170pt iPad-like / 120pt phone-like),
@@ -93,24 +98,20 @@
      height is GrassSilhouetteRow's own formula: capped at 0.55x
      heroSceneHeight on a wide layout, or width/aspectRatio on a
      narrow one (both work out to roughly the same ~0.55 ratio here). */
-  .hero-scene {
-    position: relative;
-    height: 130px;
-  }
-  /* `right: 8%` (the previous approach) measures from the container's
-     own right edge — which is exactly the bug: the text block is only
-     ~400px wide, but the container can be 1200px wide, so "8% from
-     the right" leaves the deer hundreds of pixels away from where
-     the text actually ends, with nothing but empty gradient between
-     them. Position it from the left instead, close to where the text
-     is expected to end, with a safety clamp (the `calc(100% ...)`
-     term) so it can't run past the container's own right edge or
-     collide with the text at narrower widths. */
+  /* `right: 8%` (an earlier approach) measures from the container's
+     own right edge — which was the bug: the text block is only ~400px
+     wide, but the container can be 1200px wide, so "8% from the
+     right" left the deer hundreds of pixels away from where the text
+     actually ends, with nothing but empty gradient between them.
+     Position it from the left instead, close to where the text is
+     expected to end, with a safety clamp (the `calc(100% ...)` term)
+     so it can't run past the container's own right edge or collide
+     with the text at narrower widths. */
   .hero-art {
     position: absolute;
-    left: min(440px, calc(100% - 144px));
+    left: min(520px, calc(100% - 144px));
     bottom: 0;
-    height: 130px;
+    height: 230px;
     width: auto;
   }
   .grass {
@@ -118,7 +119,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 71px;
+    height: 93px;
     background-image: url('images/grass-silhouette.png');
     background-repeat: repeat-x;
     background-position: bottom left;
@@ -126,21 +127,23 @@
   }
 
   @media (max-width: 480px) {
-    .hero-content { padding: 1.5rem 1.25rem 0.4rem; }
+    /* Same reasoning as the desktop 230px value: measured text bottom
+       at ~84px, grass (65px tall) needs real clearance above that. */
+    .hero-inner { height: 170px; }
+    .hero-content { padding: 1rem 1.25rem 0; }
     .hero h1 { font-size: 1.9rem; }
-    .hero p.tagline { font-size: 1rem; }
-    .hero-scene { height: 95px; }
-    .hero-art { height: 95px; right: 4%; }
-    .grass { height: 52px; }
+    .hero p.tagline { font-size: 1.3rem; }
+    .hero-art { height: 170px; }
+    .grass { height: 65px; }
   }
 
-  /* Same shared, centered container as .hero-content — see its own
+  /* Same left-anchored container as .hero-inner — see its own
      comment. Paragraph/list text inside each question still keeps its
      own separate, narrower reading measure (below), since a section's
      width and a comfortable line length aren't the same constraint. */
   main {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0;
     padding: 2.5rem clamp(1.25rem, 5vw, 4rem) 4rem;
     line-height: 1.6;
   }
@@ -198,7 +201,7 @@
   }
   footer {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0;
     padding: 0 clamp(1.25rem, 5vw, 4rem) 3rem;
     font-size: 0.85rem;
     color: #8a8a8e;
@@ -213,13 +216,9 @@
       <h1>HarvestLight</h1>
       <p class="tagline">Shooting hours alarms</p>
     </div>
+    <img class="hero-art" src="images/harvest-moon-deer.png" alt="">
   </div>
-  <div class="hero-scene">
-    <div class="hero-inner">
-      <img class="hero-art" src="images/harvest-moon-deer.png" alt="">
-    </div>
-    <div class="grass"></div>
-  </div>
+  <div class="grass"></div>
 </div>
 
 <main>
