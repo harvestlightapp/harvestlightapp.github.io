@@ -113,14 +113,20 @@
     .grass { height: 52px; }
   }
 
-  /* Same left edge as .hero-content at every width (max-width still
-     caps the line length for readability, it just doesn't get
-     auto-centered away from the hero's own edge). */
+  /* Same left edge as .hero-content at every width. The section itself
+     is allowed to be wide (so it doesn't leave a huge dead void next
+     to a narrow column on an ordinary laptop screen), but the actual
+     paragraph text keeps its own, separate readable measure below —
+     a wide container and a narrow reading column aren't the same
+     constraint and shouldn't share one max-width. */
   main {
-    max-width: 700px;
+    max-width: 1100px;
     margin: 0;
     padding: 2.5rem clamp(1.25rem, 5vw, 4rem) 4rem;
     line-height: 1.6;
+  }
+  .question p, .question li {
+    max-width: 640px;
   }
   .page-title {
     font-size: 1.75rem;
