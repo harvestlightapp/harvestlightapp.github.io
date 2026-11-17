@@ -25,7 +25,6 @@
     position: relative;
     overflow: hidden;
     background: linear-gradient(to bottom, var(--navy) 0%, var(--navy) 12%, var(--rose) 55%, var(--orange) 100%);
-    padding: 3rem 1.5rem 2.5rem;
     text-align: center;
   }
   .hero::before {
@@ -41,18 +40,11 @@
       radial-gradient(1px 1px at 10% 45%, rgba(255,255,255,0.5), transparent);
     pointer-events: none;
   }
-  .hero-art {
-    position: absolute;
-    right: -20px;
-    bottom: 56px;
-    height: 150px;
-    width: auto;
-    opacity: 0.95;
-  }
   .hero-content {
     position: relative;
     max-width: 700px;
     margin: 0 auto;
+    padding: 3rem 1.5rem 1rem;
   }
   .hero h1 {
     font-family: "Marcellus", serif;
@@ -73,21 +65,43 @@
     margin: 0.75rem 0 0;
     color: rgba(255,255,255,0.75);
   }
+
+  /* The scene band: deer+moon grounded in the grass, both layered directly
+     over the gradient's own lower (orange) portion — not a separate banner
+     stacked below it. The deer sits behind the grass line, same as the
+     app's own hero, so its legs read as standing in the field rather than
+     floating in front of it. */
+  .hero-scene {
+    position: relative;
+    height: 170px;
+  }
+  .hero-art {
+    position: absolute;
+    right: 6%;
+    bottom: 34px;
+    height: 150px;
+    width: auto;
+  }
   .grass {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: block;
     width: 100%;
-    height: 140px;
+    height: 120px;
     object-fit: cover;
     object-position: center 58%;
-    margin-top: -4px;
   }
 
   @media (max-width: 480px) {
-    .hero { padding: 2.25rem 1.25rem 1.75rem; }
+    .hero-content { padding: 2.25rem 1.25rem 0.75rem; }
     .hero h1 { font-size: 1.9rem; }
     .hero p.tagline { font-size: 1rem; }
     .hero p.subtitle { font-size: 0.85rem; }
-    .hero-art { height: 85px; bottom: 36px; right: -10px; opacity: 0.45; }
+    .hero-scene { height: 130px; }
+    .hero-art { height: 100px; bottom: 26px; right: 4%; }
+    .grass { height: 90px; }
   }
 
   main {
@@ -152,14 +166,16 @@
 <body>
 
 <div class="hero">
-  <img class="hero-art" src="images/harvest-moon-deer.png" alt="">
   <div class="hero-content">
     <h1>HarvestLight</h1>
     <p class="tagline">Frequently asked questions</p>
     <p class="subtitle">Shooting hours alarms — your phone stays in your pocket, you stay ready.</p>
   </div>
+  <div class="hero-scene">
+    <img class="hero-art" src="images/harvest-moon-deer.png" alt="">
+    <img class="grass" src="images/grass-silhouette.png" alt="">
+  </div>
 </div>
-<img class="grass" src="images/grass-silhouette.png" alt="">
 
 <main>
 
