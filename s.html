@@ -69,11 +69,24 @@
 
     openButton.href = "harvestlight://import?data=" + encodeURIComponent(data);
 
+    // The app encodes `d` as URL-safe base64 (`-`/`_`, no padding) — see
+    // SeasonTransfer.swift for why. Converting back to standard base64
+    // here is only for this page's own cosmetic atob() preview below;
+    // `data` itself is passed through to the app above exactly as it
+    // arrived, since the app expects URL-safe base64 too.
+    function base64UrlToStandard(value) {
+      var standard = value.replace(/-/g, "+").replace(/_/g, "/");
+      while (standard.length % 4) {
+        standard += "=";
+      }
+      return standard;
+    }
+
     // Best-effort: decode just enough to show a friendlier subtitle. Falls
     // back to the generic message above if the payload doesn't parse —
     // the app itself does the real decoding, this is cosmetic only.
     try {
-      var json = JSON.parse(atob(data));
+      var json = JSON.parse(atob(base64UrlToStandard(data)));
       var days = json.days || [];
       var count = days.length;
       var dateWord = count === 1 ? "date" : "dates";
